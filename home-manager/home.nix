@@ -1,13 +1,43 @@
-{ config, pkgs, ... }:
-
 {
+  inputs,
+  config, 
+  pkgs, 
+  ... 
+}: {
+
+  imports = [
+    inputs.nur.nixosModules.nur
+  ];
   
   home.username = "xiorcale";
   home.homeDirectory = "/home/xiorcale";
-  
+
   programs = {
     bash.enable = true;
     bat.enable = true;
+
+    firefox = {
+      enable = true;
+
+      policies = {
+        DisplayMenuBar = "never";
+        Homepage.StartPage = "previous-session";
+        OfferToSaveLogins = false;
+      };
+
+      profiles.xiorcale= {
+        isDefault = true;
+         
+        extensions = [
+          config.nur.repos.rycee.firefox-addons.bitwarden
+          config.nur.repos.rycee.firefox-addons.proton-pass
+          config.nur.repos.rycee.firefox-addons.ublock-origin
+          config.nur.repos.rycee.firefox-addons.windscribe
+        ];
+
+        search.default = "DuckDuckGo";
+      };
+    };
 
     fzf = {
       enable = true;

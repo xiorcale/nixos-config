@@ -8,12 +8,15 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nur.url = "github:nix-community/NUR";
   };
 
   outputs = {
     self,
     nixpkgs,
     home-manager,
+    nur,
     ...
   } @ inputs: let
     inherit (self) outputs;
@@ -22,7 +25,7 @@
       nixos = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = { inherit inputs outputs; };
-        modules = [ 
+        modules = [
           ./nixos/configuration.nix 
           ./home-manager/home-configuration.nix
         ];
