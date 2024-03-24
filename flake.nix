@@ -23,8 +23,8 @@
         system = "x86_64-linux";
         specialArgs = { inherit inputs outputs; };
         modules = [ 
-          ./configuration.nix 
-          ./home-configuration.nix
+          ./nixos/configuration.nix 
+          ./home-manager/home-configuration.nix
         ];
       };
     };
